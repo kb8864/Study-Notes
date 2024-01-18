@@ -12,19 +12,31 @@ docker container run \
     --publish 8080:80  \
     nginx:1.21
 ```
+
 出力されたエラー
-```
 ```
 nable to find image '8080:80' locally
 docker: Error response from daemon: pull access denied for 8080, repository does not exist or may require 'docker login': denied: requested access to the resource is denied.
 See 'docker run --help'.
 ```
+
+`
 これは8080:80という名前のイメージをローカルで見つけることができず、さらにリモートリポジトリからのpullも拒否されている
 --publish オプションの後ろ、nginx:1.21（コンテナイメージの名前とタグ）が新しい行に移動してしまっている
 Dockerは8080:80をイメージ名として解釈しようとしてしまっている
 正解は
+`
 ```
 docker container run --publish 8080:80 nginx:1.21
 
 ```
---publish オプション
+
+dockerのコマンド
+```
+コンテナを起動するには container run
+コンテナ一覧を確認するなら container ls
+起動中のコンテナを停止するなら container stop
+停止済のコンテナを削除するなら container rm
+起動中のコンテナを削除するなら container rm --force
+
+```
