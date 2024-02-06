@@ -1,6 +1,10 @@
 # 最初のVue
+
+<details>
+  <summary>HTML</summary>
+  
 ```
- HTML
+
 <html lang="ja">
 CDNでVueの読み込み
  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
@@ -22,10 +26,14 @@ CDNでVueの読み込み
 </html>
 
 ```
+
+</details>
    
 
+<details>
+  <summary>JS</summary>
+  
 ```
- JS
 const app = Vue.createApp({//Vue.createAppはインスタンスを作り変数appに入れます。
 //appはapplicationの略で vmはViewModelの略です
   
@@ -37,6 +45,31 @@ app.mount('#app')
 // 指定されたHTMl要素がVUeが構築したDOM置き換えられる
 
 ```
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # データバインディングとは？
 データと描画を同期する仕組み
 テキストのデータバインディング
