@@ -1,14 +1,31 @@
 # 最初のVue
 ```
-JS
+ HTML
+<html lang="ja">
+CDNでVueの読み込み
+ <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+
 <div id="app">
-  
+イベントハンドラ  
 </div>
-Vueの読み込み
-<!-- <script src="https://unpkg.com/vue@3.1.5"></script> -->
+
+   <script>
+      new Vue({
+        el: '#app', //#appというIDを持つDOM要素に紐付け
+        data: {
+          //アプリケーションの状態を保持する変数が含まれている。
+          message: ''
+        },
+      });
+    </script>
+  </body>
+</html>
+
 ```
+   
+
 ```
-HTML
+ JS
 const app = Vue.createApp({//Vue.createAppはインスタンスを作り変数appに入れます。
 //appはapplicationの略で vmはViewModelの略です
   
