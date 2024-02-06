@@ -48,9 +48,55 @@ app.mount('#app')
 
 </details>
 
+# 現在の日付とフォーマットされた料金を表示するシンプルなウェブページを作成する
+- dataオブジェクトに定義されたデータを基に動的なHTMLコンテンツを生成するため、{{ }}内にページがレンダリングされるたびにHTMLに挿入される。その時のJavaScript式↓
+- {{ date.getFullYear() }}：dataオブジェクト内で定義されたnew Date()によって生成された現在の日付と時間のオブジェクトを挿入。
+- getFullYear(): Dateオブジェクトのメソッドで、4桁の年（例：2023）を返す
+- {{ date.getMonth() + 1 }}：getMonth(): Dateオブジェクトのメソッドで、月を返しますが、0から始まるため（0は1月、1は2月...）、実際の月より1小さい値です。+ 1: 実際の月を得るために、getMonth()の結果に1を加算する
+- {{ date.getDate() }}：月の日付を返します（1から31
+- {{ Number(price).toLocaleString() }}：toLocaleString(): 数値を、ブラウザのロケール設定に基づいた文字列に変換するメソッドです。例えば、英語のロケールでは10,000のように数値をフォーマットし、日本語のロケールでは10,000（千区切り）と表示されます。
 
+<details>
+  <summary>HTML</summary>
+  
+```<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      本日は {{ date.getFullYear() }} 年 {{ date.getMonth() + 1 }} 月 {{
+      date.getDate() }} 日です。<br />
+      料金は {{ Number(price).toLocaleString() }} 円になります。
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          date: new Date(), //現在の日付と時間のデータを保持するキー名
+          price: 10000,
+        },
+      });
+    </script>
+  </body>
+</html>
 
+```
 
+</details>
+
+# 
+
+<details>
+  <summary>HTML</summary>
+  
+```
+```
+
+</details>
 
 
 
