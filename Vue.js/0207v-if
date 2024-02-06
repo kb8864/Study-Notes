@@ -1,0 +1,39 @@
+# v-if
+
+<details>
+  <summary>HTML</summary>
+  
+```
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>sample</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button @click="mode += 1">切り替え</button>
+      <!-- modeを3で割った余りが1の場合 -->
+      <div v-if="mode%3===1">mode 1(あまりが１)</div>
+
+      <!-- modeを3で割った余りが2の場合 -->
+      <div v-else-if="mode%3===2" :style="{color: 'red'}">
+        mode 2（あまりが２）
+      </div>
+      <!-- : 上記のいずれの条件にも当てはまらない場合 -->
+      <div v-else :style="{color: 'green'}">mode 3</div>
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          mode: 1, //mode: 1で初期状態としてmode変数を1に設定。このmodeは、ボタンクリックによって増加し、表示される内容を制御。その結果に応じて
+          //v-if、v-else-if、v-elseディレクティブの条件に応じた表示の切り替えが実現可能
+        },
+      });
+    </script>
+  </body>
+</html>
+
+```
