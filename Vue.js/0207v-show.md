@@ -100,4 +100,44 @@ https://github.com/kb8864/Study-Notes/assets/128299525/a19367d3-2bd1-477f-80df-4
 
 https://github.com/kb8864/Study-Notes/assets/128299525/c7689fad-64b1-4121-89ad-8932a9a733fb
 
+<details>
+  <summary>HTML</summary>
+  
+```
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>sample</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button class="button" v-on:click="toggle">切り替え</button>
+      <!-- <button @click="isActive = !isActive">切り替え</button> -->
+      <div v-show="isActive" :style="{color: 'red'}">アクティブです!</div>
+      <div v-show="!isActive" :style="{color: 'gray'}">...非アクティブ...</div>
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          isActive: true,
+        },
 
+        methods: {
+          toggle: function () {
+            this.isActive = !this.isActive;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
+
+```
+
+</details>
+
+
+https://github.com/kb8864/Study-Notes/assets/128299525/a68f0d10-0e96-4754-b218-cf0b6dba75b2
