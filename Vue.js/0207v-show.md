@@ -141,3 +141,63 @@ https://github.com/kb8864/Study-Notes/assets/128299525/c7689fad-64b1-4121-89ad-8
 
 
 https://github.com/kb8864/Study-Notes/assets/128299525/a68f0d10-0e96-4754-b218-cf0b6dba75b2
+
+# 特定の条件下でHTML要素の表示と非表示を行ってみた
+- v-showディレクティブを各ボタン要素に適用して、isActiveがtrueの時のみ表示されるように変更
+- isActiveがfalseの時は3つのボタンが非表示になる
+- Vueインスタンスのdataオブジェクト内で定義されているisActiveというデータプロパティを使用して、条件を設定する
+- v-showディレクティブは指定された条件が真（true）の場合にのみ、HTML要素を表示するので、trueの時に表示するボタンにv-show="isActive"をつけてあげる
+
+<details>
+  <summary>HTML</summary>
+  
+```
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>sample</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button class="button" v-on:click="toggle">ボタン表示</button>
+      <div v-show="isActive" :style="{color: 'red'}">ボタン表示中!</div>
+      <div v-show="!isActive" :style="{color: 'gray'}"></div>
+      <button class="button" v-on:click="logging('hoge')" v-show="isActive">
+        hoge
+      </button>
+      <button class="button" v-on:click="logging('huga')" v-show="isActive">
+        fuga
+      </button>
+      <button class="button" v-on:click="logging('pega')" v-show="isActive">
+        pega
+      </button>
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          isActive: true,
+        },
+
+        methods: {
+          toggle: function () {
+            this.isActive = !this.isActive;
+          },
+          logging: function (param) {
+            console.log('入力引数は' + param + 'です');
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
+
+```
+
+</details>
+
+https://github.com/kb8864/Study-Notes/assets/128299525/0ed850eb-d503-445a-887c-3734c39db057
+
+
