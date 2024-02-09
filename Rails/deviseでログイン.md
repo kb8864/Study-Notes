@@ -160,3 +160,8 @@ Running via Spring preloader in process 57022
 マイグレーションファイルにt.string :nameを追加
 
 $ bundle exec rails db:migrate
+
+
+
+
+
