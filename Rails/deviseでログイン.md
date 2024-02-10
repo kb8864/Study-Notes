@@ -502,3 +502,35 @@ app/views/layouts/application.html.erbの中身を編集
 <% end %>
 <%= link_to t('views.common.back'), users_path %>
 ```
+
+
+# ここまでの画面
+
+https://github.com/kb8864/Study-Notes/assets/128299525/bbb1cb88-26b0-4d5e-808e-eb1a97305401
+
+
+# サインイン,サインアウト,アカウント編集後のリダイレクト先の変更
+app/controllers/application_controller.rbに追記
+```
+class ApplicationController < ActionController::Base
+  # 省略
+  private
+
+  def after_sign_in_path_for(resource_or_scope)
+    books_path #ユーザーがログイン操作を完了した後にリダイレクトされるパスを定義するメソッドで、今回は、books_pathへ遷移させる
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    new_user_session_path # ユーザーがログアウト操作を完了した後にリダイレクトされるパスを定義するメソッド。今回はログインページ（new_user_session_path）にリダイレクトするように設定
+  end
+
+  def signed_in_root_path(resource_or_scope)
+    user_path(current_user) # ログイン済みのユーザーがアプリケーションのルートパスにアクセスした時にアクセスした際にリダイレクトされるパスを定義。今回は、現在ログインしているユーザーのプロフィールページ（user_path(current_user)）（/users/:id）にリダイレクト
+  end
+end
+
+```
+
+
+https://github.com/kb8864/Study-Notes/assets/128299525/3e17a063-b263-43de-8731-467fcb5068a2
+
