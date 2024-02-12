@@ -81,3 +81,10 @@ Rails.application.routes.draw do
 en
 ```
 
+# helloコントローラーをブラウザで確認
+docker-compose up api
+http://localhost:3000/api/v1/helloにアクセス
+
+# コンテナを削除
+docker-compose down
+docker-compose ps -a
