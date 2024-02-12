@@ -173,3 +173,81 @@ services:
 
 </details>
 
+```
+docker-compose build
+
+% docker images
+REPOSITORY                          TAG       IMAGE ID       CREATED          SIZE
+demoapp_v1-front                    latest    bf1719a148b3   12 minutes ago   137MB
+demoapp_v1-api                      latest    d3921e99806f   13 minutes ago   425MB
+
+ docker-compose run --rm api rails new . -f -B -d postgresql --api
+
+```
+## Gemfileが書き換わったのでapiサービスのDockerイメージを再ビルド
+```
+docker-compose build api
+```
+## apiコンテナだけを起動して、ブラウザでhttp://localhost:3000にアクセス
+```
+docker-compose up api
+```
+
+<details>
+  <summary>エラー内容</summary>
+  
+```
+ActiveRecord::ConnectionNotEstablished
+
+could not connect to server: No such file or directory
+Is the server running locally and accepting
+connections on Unix domain socket "/tmp/.s.PGSQL.5432"?
+
+プリケーションがPostgreSQLデータベースに接続しようとした際に、接続が確立できなかったことを示しています。
+具体的には、PostgreSQLサーバーがローカルで実行されておらず、または指定されたUnixドメインソケット（/tmp/.s.PGSQL.5432）で接続を受け入れていない可能性があります。
+→database.ymlに以下の3行が追加されていなかった。これを「default: &default」の中に追加する。
+  host: db
+  username: postgres
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
+
+```
+
+</details>
+
+# エラー内容を追加したら、一回コンテナをダウンさせる
+```
+% docker compose down
+[+] Running 3/3
+ ⠿ Container demoapp_v1-api-1  Removed                                                                                                                                          0.0s
+ ⠿ Container demoapp_v1-db-1   Removed                                                                                                                                          0.1s
+ ⠿ Network demoapp_v1_default  Removed
+```
+確認
+
+```
+% docker compose ps -a
+NAME                IMAGE               COMMAND             SERVICE             CREATED             STATUS              PORTS
+```
+
+# Railsのデータベースが作成されていなくて接続エラーも起こしていたので、Railsのdatabase.ymlにPostgreSQLの初期設定を行ったらDBの作成コマンドをうつ
+```
+docker-compose run --rm api rails db:create
+Created database 'app_development'
+Created database 'app_test'
+```
+
+
+# もう一度Railsの起動を確認
+```
+ docker-compose up api
+```
+
+![スクリーンショット 2024-02-12 18 51 42](https://github.com/kb8864/Study-Notes/assets/128299525/6b6e3c20-c76c-4e66-83d9-7a9053f7d34b)
+
+```
+% docker compose down
+[+] Running 3/3
+ ⠿ Container demoapp_v1-api-1  Removed                                                                                                                                          0.0s
+ ⠿ Container demoapp_v1-db-1   Removed                                                                                                                                          0.7s
+ ⠿ Network demoapp_v1_default  Removed
+```
