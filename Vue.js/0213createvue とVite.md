@@ -1,6 +1,9 @@
 # 従来、VueではVueCLIと呼ばれるコマンドラインツールが提供されていましたが、現在ではメンテナンスモードの扱いとなっています。つまり、今後は新たな機能は追加されず、不具合の修正だけが行われます。新しい開発では、原則としてcreatevueを優先して利用するようにしてください。createvueは、内部的にはViteというツールをベースにしています。
 
 # これからやるのは開発支援ツールのインストール
+## 用語
+・独自の.vueファイルを使って、コンポーネントを作成する
+・開発環境なら、ブラウザ上で「.vueファイル」実行可能
 
 # 準備
 ```
@@ -46,7 +49,8 @@ Done. Now run:
 ```
  quick-vue % ls
 README.md	index.html	jsconfig.json	package.json	public		src		vite.config.js
-/srcフォルダー（特に、その配下の/componentsフォルダー）が、Vueアプリの本体でここを編集していく
+
+/srcフォルダー（特に、その配下の/componentsフォルダー）で、Vueアプリの本体を作成、編集していく
 
 ```
 
@@ -164,6 +168,254 @@ App.vueの以下<img>タグでロゴの画像を読み込んでいるのでコ�
   <summary>App.vue</summary>
   
 ```
+
+<template>
+  <header>
+    <!-- <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" /> -->
+
+    <div class="wrapper">
+      <HelloWorld msg="You did it!" />
+    </div>
+  </header>
+
+</template>
+
 ```
 
 </details>
+
+# 簡単なリアクティブシステムの作り方
+## Counter.vue コンポーネントの作成
+Counter.vue ファイルは、プロジェクトの src/components ディレクトリ内に手動で作成
+```
+cd src/components
+touch Counter.vue
+```
+## コンポーネントの定義
+Counter.vue のコード
+```
+<template>
+  <div>
+    <h1>{{ count }}</h1>
+    <button @click="increment">Increment</button>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const count = ref(0);
+
+function increment() {
+  count.value++;
+}
+</script>
+
+<style>
+/* ここにスタイルを追加 */
+</style>
+```
+
+## Counter.vue コンポーネントを作成した後、 App.vue でこのコンポーネントを使用
+App.vue は通常、プロジェクトのエントリーポイントとして機能するコンポーネント
+App.vue で Counter.vue コンポーネントを使用するには、まずインポートする必要があるのでやる
+App.vue の <script> タグ内に以下のコードを追加
+```
+import Counter from './components/Counter.vue'
+```
+そして、コンポーネントの使用の使用。
+App.vue のテンプレート内で <Counter /> タグを追加して、コンポーネントを使用
+```
+<template>
+  <div id="app">
+    <Counter />
+  </div>
+</template>
+
+<script setup>
+import Counter from './components/Counter.vue'
+</script>
+
+```
+修正完了したApp.vue
+```
+<script setup>
+import Counter from './components/Counter.vue'
+</script>
+
+<template>
+  <main>
+    <Counter />
+  </main>
+</template>
+
+<style scoped>
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+</style>
+
+
+```
+アプリケーションは起動時にCounter コンポーネントのみを表示
+
+# ここまでの復習
+<details>
+  <summary>一番最初のApp.vue</summary>
+  
+```
+<script setup>
+import HelloWorld from './components/HelloWorld.vue'
+import TheWelcome from './components/TheWelcome.vue'
+</script>
+
+<template>
+  <header>
+    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+
+    <div class="wrapper">
+      <HelloWorld msg="You did it!" />
+    </div>
+  </header>
+
+  <main>
+    <TheWelcome />
+  </main>
+</template>
+
+<style scoped>
+header {
+  line-height: 1.5;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 2rem;
+}
+
+@media (min-width: 1024px) {
+  header {
+    display: flex;
+    place-items: center;
+    padding-right: calc(var(--section-gap) / 2);
+  }
+
+  .logo {
+    margin: 0 2rem 0 0;
+  }
+
+  header .wrapper {
+    display: flex;
+    place-items: flex-start;
+    flex-wrap: wrap;
+  }
+}
+</style>
+
+```
+
+</details>
+
+# アイコンを表示し、緑色の文字で「HelloWorld」と表示
+TheWelcome コンポーネントとかいう邪魔なコンポーネントが描かれているので削除
+<details>
+  <summary>修正後のApp.vue</summary>
+  
+```
+<script setup>
+import HelloWorld from './components/HelloWorld.vue'
+</script>
+
+<template>
+  <header>
+    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    <HelloWorld />
+  </header>
+</template>
+
+<style scoped>
+header {
+  line-height: 1.5;
+  text-align: center; /* 中央揃えに修正 */
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 2rem;
+}
+
+@media (min-width: 1024px) {
+  header {
+    display: flex;
+    flex-direction: column; /* ロゴとテキストを縦に並べる */
+    align-items: center; /* 中央揃えに修正 */
+    padding-right: calc(var(--section-gap) / 2);
+  }
+
+  .logo {
+    margin-bottom: 2rem; /* ロゴとテキストの間隔を調整 */
+  }
+}
+</style>
+
+```
+
+</details>
+
+<details>
+  <summary>他のコンポーネント</summary>
+  
+```
+<template>
+  <!--HTMLを記載するタグです-->
+  <div id="app">
+    <p>{{ message }}</p>
+  </div>
+</template>
+
+<script>
+// スクリプトを記載するタグです
+  export default {
+    data: function() {
+      return {
+        message: 'Hello World'
+      }
+    },
+  }
+</script>
+
+<style scoped>
+/** CSSを記載するタグです */
+  p {
+    color: green;
+  }
+</style>
+
+
+```
+
+</details>
+
+<details>
+  <summary>JS</summary>
+  
+```
+import './assets/main.css'
+
+import { createApp } from 'vue'
+import App from './App.vue'
+
+createApp(App).mount('#app')
+// main.js によってアプリケーションが起動され、
+// App.vue がマウントされると、Vueのロゴとともに「Hello World」のメッセージが緑色の文字で表示
+```
+
+</details>
+
+npm run devで起動
+http://localhost:5173/
+
+<img width="249" alt="スクリーンショット 2024-02-13 20 04 06" src="https://github.com/kb8864/Study-Notes/assets/128299525/7404f5f3-afd4-49ec-a92a-f89efa13f230">
