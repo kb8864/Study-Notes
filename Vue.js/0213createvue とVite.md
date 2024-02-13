@@ -1,19 +1,33 @@
-# 従来、VueではVueCLIと呼ばれるコマンドラインツールが提供されていましたが、現在ではメンテナンスモードの扱いとなっています。つまり、今後は新たな機能は追加されず、不具合の修正だけが行われます。新しい開発では、原則としてcreatevueを優先して利用するようにしてください。createvueは、内部的にはViteというツールをベースにしています。
+# 開発ツールcreatevueのインストール
 
-# これからやるのは開発支援ツールのインストール
+
+<details>
+  <summary>注意事項</summary>
+  
+```
+従来、VueではVueCLIと呼ばれるコマンドラインツールが提供されていましたが、現在ではメンテナンスモードの扱いとなっています。つまり、今後は新たな機能は追加されず、不具合の修正だけが行われます。新しい開発では、原則としてcreatevueを優先して利用するようにしてください。createvueは、内部的にはViteというツールをベースにしています。
+
+```
+
+</details>
+
+ 
+# これからやるのは開発ツールのインストール
 ## 用語
 ・独自の.vueファイルを使って、コンポーネントを作成する
 ・開発環境なら、ブラウザ上で「.vueファイル」実行可能
 
 # 準備
+今回はnodeのバージョンは16.14.2を使う
 ```
 % nodenv install 16.14.2
+
 # nodenvに認識させる
-$ nodenv rehash
+% nodenv rehash
  % nodenv versions
   system
 * 15.14.0 (set by /Users/user/.nodenv/version)
-  16.14.2
+  16.14.2←
   16.16.0
   20.5.1
  %  nodenv local 16.14.2
@@ -23,6 +37,7 @@ $ nodenv rehash
 ```
 (作業ディレクトリで（プロジェクトを作成)
 npm init vue@latest
+
 createvueをインストールするかを訊かれるので、Yes（既定）のままで先に進む
 プロジェクト名を「quickvue」とするほかは、とりあえず、No（既定）のままで。あとで追加する
 Vue.js - The Progressive JavaScript Framework
@@ -70,23 +85,26 @@ npm run dev
   ➜  press h + enter to show help
 ```
 # http://127.0.0.1:5173/にアクセス
-成功
+成功！
 ![スクリーンショット 2024-02-13 17 23 42](https://github.com/kb8864/Study-Notes/assets/128299525/d9cca6d7-6623-4d01-b199-9620c4553b24)
 
 
 index.html→main.js→App.vue（コンポーネント）の流れ
+各ファイルの説明
 <details>
   <summary>HTML</summary>
   
 ```
 <body>
-<!--コンポーネントを反映する領域>
 <divid="app">
+<!--コンポーネントを反映する領域>
+
 </div>
 
 <!--b.アプリをインポートする領域>
 <scripttype="module"src="/src/main.js"></script>
 
+</body>
 ```
 
 </details>
@@ -97,172 +115,38 @@ index.html→main.js→App.vue（コンポーネント）の流れ
 ```
 //アプリを動作するためのVueライブラリのインポート
 import {createApp} from 'vue'
+
 //アプリ本体のインポート
 import App from './App.vue'
+
 //c.Vueアプリの起動終了を管理するインスタンス
 createApp(App).mount('#app')
 
 ```
 
 </details>
- # 最上位のコンポーネント→App.vueの主な構成
+
+# 最上位のコンポーネント→App.vueの主な構成
+
+```
 <script>要素：コンポーネント定義（JavaScript）
 <template>要素：コンポーネントの見た目（HTML）
 <style>要素：コンポーネントに適用するスタイル（CSS）
-  ブラウザが開発サーバにアクセス後にindex.htmlを受け取りindex.htmlファイルに設定されているmain.jsファイルをダウンロードしてブラウザ上で実行することでdiv要素の間にコンテンツが挿入
-つまり、1ファイルに3つの言語をまとめることで管理がしやすくなってるのがVueの特徴。
-    こんな感じのファイル構成となる
+ ```
+
+ブラウザが開発サーバにアクセス後にindex.htmlを受け取りindex.htmlファイルに設定されているmain.jsファイルをダウンロードして、
+ブラウザ上で実行することでdiv要素の間にコンテンツが挿入
+つまり、1ファイルに3つの言語をまとめることで管理がしやすくなってるのがVueの特徴。超便利。
+ こんな感じのファイル構成となる
  
 ![スクリーンショット 2024-02-13 17 55 09](https://github.com/kb8864/Study-Notes/assets/128299525/b3af8c83-6858-4e71-af59-2671492382e0)
 
  HelloWorld.vue・・・HelloWorld.vueコンポーネント
  App.vue・・・メインコンポーネント
 
- # HelloWorld.vueのコードを書き換える
-一番最初はごちゃごちゃと書いてあるけど、書き換える。
+ # HelloWorldするための各コードを書き換える
+インストール当初は、ごちゃごちゃと書いてあるけど、書き換える。
 
- 
-<details>
-  <summary>HelloWorld.vue</summary>
-  
-```
-<!-- 書き換え後 -->
-<template>
-  <!--HTMLを記載するタグです-->
-  <div id="app">
-    <p>{{ message }}</p>
-  </div>
-</template>
-
-<script>
-// スクリプトを記載するタグです
-  export default {
-    data: function() {
-      return {
-        message: 'Hello World'
-      }
-    },
-  }
-</script>
-
-<style scoped>
-/** CSSを記載するタグです */
-  p {
-    color: green;
-  }
-</style>
-
-```
-
-</details>
-
-アイコン付きのHello Worldが表示される
-
-![スクリーンショット 2024-02-13 18 34 31](https://github.com/kb8864/Study-Notes/assets/128299525/42a4b86c-96f8-4eae-ad01-7a48fa1e0083)
-
-# Vueのロゴを削除する
-App.vue」を編集し、Vueのロゴを削除
-App.vueの以下<img>タグでロゴの画像を読み込んでいるのでコメントアウト
-
-<details>
-  <summary>App.vue</summary>
-  
-```
-
-<template>
-  <header>
-    <!-- <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" /> -->
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-</template>
-
-```
-
-</details>
-
-# 簡単なリアクティブシステムの作り方
-## Counter.vue コンポーネントの作成
-Counter.vue ファイルは、プロジェクトの src/components ディレクトリ内に手動で作成
-```
-cd src/components
-touch Counter.vue
-```
-## コンポーネントの定義
-Counter.vue のコード
-```
-<template>
-  <div>
-    <h1>{{ count }}</h1>
-    <button @click="increment">Increment</button>
-  </div>
-</template>
-
-<script setup>
-import { ref } from 'vue';
-
-const count = ref(0);
-
-function increment() {
-  count.value++;
-}
-</script>
-
-<style>
-/* ここにスタイルを追加 */
-</style>
-```
-
-## Counter.vue コンポーネントを作成した後、 App.vue でこのコンポーネントを使用
-App.vue は通常、プロジェクトのエントリーポイントとして機能するコンポーネント
-App.vue で Counter.vue コンポーネントを使用するには、まずインポートする必要があるのでやる
-App.vue の <script> タグ内に以下のコードを追加
-```
-import Counter from './components/Counter.vue'
-```
-そして、コンポーネントの使用の使用。
-App.vue のテンプレート内で <Counter /> タグを追加して、コンポーネントを使用
-```
-<template>
-  <div id="app">
-    <Counter />
-  </div>
-</template>
-
-<script setup>
-import Counter from './components/Counter.vue'
-</script>
-
-```
-修正完了したApp.vue
-```
-<script setup>
-import Counter from './components/Counter.vue'
-</script>
-
-<template>
-  <main>
-    <Counter />
-  </main>
-</template>
-
-<style scoped>
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-</style>
-
-
-```
-アプリケーションは起動時にCounter コンポーネントのみを表示
-
-# ここまでの復習
 <details>
   <summary>一番最初のApp.vue</summary>
   
@@ -419,3 +303,106 @@ npm run devで起動
 http://localhost:5173/
 
 <img width="249" alt="スクリーンショット 2024-02-13 20 04 06" src="https://github.com/kb8864/Study-Notes/assets/128299525/7404f5f3-afd4-49ec-a92a-f89efa13f230">
+
+# Vueのロゴを削除する
+App.vue」を編集し、Vueのロゴを削除
+App.vueの以下<img>タグでロゴの画像を読み込んでいるのでコメントアウト
+
+<details>
+  <summary>App.vue</summary>
+  
+```
+
+<template>
+  <header>
+    <!-- <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" /> -->
+
+    <div class="wrapper">
+      <HelloWorld msg="You did it!" />
+    </div>
+  </header>
+
+</template>
+
+```
+
+</details>
+
+# 簡単なリアクティブシステムの作り方
+## Counter.vue コンポーネントの作成
+Counter.vue ファイルは、プロジェクトの src/components ディレクトリ内に手動で作成
+```
+cd src/components
+touch Counter.vue
+```
+## コンポーネントの定義
+Counter.vue のコード
+```
+<template>
+  <div>
+    <h1>{{ count }}</h1>
+    <button @click="increment">Increment</button>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const count = ref(0);
+
+function increment() {
+  count.value++;
+}
+</script>
+
+<style>
+/* ここにスタイルを追加 */
+</style>
+```
+
+## Counter.vue コンポーネントを作成した後、 App.vue でこのコンポーネントを使用
+App.vue は通常、プロジェクトのエントリーポイントとして機能するコンポーネント
+App.vue で Counter.vue コンポーネントを使用するには、まずインポートする必要があるのでやる
+App.vue の <script> タグ内に以下のコードを追加
+```
+import Counter from './components/Counter.vue'
+```
+そして、コンポーネントの使用の使用。
+App.vue のテンプレート内で <Counter /> タグを追加して、コンポーネントを使用
+```
+<template>
+  <div id="app">
+    <Counter />
+  </div>
+</template>
+
+<script setup>
+import Counter from './components/Counter.vue'
+</script>
+
+```
+修正完了したApp.vue
+```
+<script setup>
+import Counter from './components/Counter.vue'
+</script>
+
+<template>
+  <main>
+    <Counter />
+  </main>
+</template>
+
+<style scoped>
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+</style>
+
+
+```
+アプリケーションは起動時にCounter コンポーネントのみを表示
+
