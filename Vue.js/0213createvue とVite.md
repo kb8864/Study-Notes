@@ -1,0 +1,169 @@
+# 従来、VueではVueCLIと呼ばれるコマンドラインツールが提供されていましたが、現在ではメンテナンスモードの扱いとなっています。つまり、今後は新たな機能は追加されず、不具合の修正だけが行われます。新しい開発では、原則としてcreatevueを優先して利用するようにしてください。createvueは、内部的にはViteというツールをベースにしています。
+
+# これからやるのは開発支援ツールのインストール
+
+# 準備
+```
+% nodenv install 16.14.2
+# nodenvに認識させる
+$ nodenv rehash
+ % nodenv versions
+  system
+* 15.14.0 (set by /Users/user/.nodenv/version)
+  16.14.2
+  16.16.0
+  20.5.1
+ %  nodenv local 16.14.2
+```
+
+# createvue プロジェクトの作成
+```
+(作業ディレクトリで（プロジェクトを作成)
+npm init vue@latest
+createvueをインストールするかを訊かれるので、Yes（既定）のままで先に進む
+プロジェクト名を「quickvue」とするほかは、とりあえず、No（既定）のままで。あとで追加する
+Vue.js - The Progressive JavaScript Framework
+
+✔ Project name: … quick-vue
+✔ Add TypeScript? … No / Yes
+✔ Add JSX Support? … No / Yes
+✔ Add Vue Router for Single Page Application development? … No / Yes
+✔ Add Pinia for state management? … No / Yes
+✔ Add Vitest for Unit Testing? … No / Yes
+✔ Add an End-to-End Testing Solution? › No
+✔ Add ESLint for code quality? … No / Yes
+
+Scaffolding project in /Users/user/workspace/Vue.js_practice_project/vue_cli/quick-vue...
+
+Done. Now run:
+
+  cd quick-vue
+  npm install
+  npm run dev
+
+```
+
+```
+ quick-vue % ls
+README.md	index.html	jsconfig.json	package.json	public		src		vite.config.js
+/srcフォルダー（特に、その配下の/componentsフォルダー）が、Vueアプリの本体でここを編集していく
+
+```
+
+# ライブラリのインストール(最初の1回だけ)
+```
+npm install
+```
+
+# アプリの起動
+```
+npm run dev
+
+  VITE v5.1.1  ready in 3607 ms
+
+  ➜  Local:   http://127.0.0.1:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+```
+# http://127.0.0.1:5173/にアクセス
+成功
+![スクリーンショット 2024-02-13 17 23 42](https://github.com/kb8864/Study-Notes/assets/128299525/d9cca6d7-6623-4d01-b199-9620c4553b24)
+
+
+index.html→main.js→App.vue（コンポーネント）の流れ
+<details>
+  <summary>HTML</summary>
+  
+```
+<body>
+<!--コンポーネントを反映する領域>
+<divid="app">
+</div>
+
+<!--b.アプリをインポートする領域>
+<scripttype="module"src="/src/main.js"></script>
+
+```
+
+</details>
+
+<details>
+  <summary>JS</summary>
+  
+```
+//アプリを動作するためのVueライブラリのインポート
+import {createApp} from 'vue'
+//アプリ本体のインポート
+import App from './App.vue'
+//c.Vueアプリの起動終了を管理するインスタンス
+createApp(App).mount('#app')
+
+```
+
+</details>
+ # 最上位のコンポーネント→App.vueの主な構成
+<script>要素：コンポーネント定義（JavaScript）
+<template>要素：コンポーネントの見た目（HTML）
+<style>要素：コンポーネントに適用するスタイル（CSS）
+  ブラウザが開発サーバにアクセス後にindex.htmlを受け取りindex.htmlファイルに設定されているmain.jsファイルをダウンロードしてブラウザ上で実行することでdiv要素の間にコンテンツが挿入
+つまり、1ファイルに3つの言語をまとめることで管理がしやすくなってるのがVueの特徴。
+    こんな感じのファイル構成となる
+ 
+![スクリーンショット 2024-02-13 17 55 09](https://github.com/kb8864/Study-Notes/assets/128299525/b3af8c83-6858-4e71-af59-2671492382e0)
+
+ HelloWorld.vue・・・HelloWorld.vueコンポーネント
+ App.vue・・・メインコンポーネント
+
+ # HelloWorld.vueのコードを書き換える
+一番最初はごちゃごちゃと書いてあるけど、書き換える。
+
+ 
+<details>
+  <summary>HelloWorld.vue</summary>
+  
+```
+<!-- 書き換え後 -->
+<template>
+  <!--HTMLを記載するタグです-->
+  <div id="app">
+    <p>{{ message }}</p>
+  </div>
+</template>
+
+<script>
+// スクリプトを記載するタグです
+  export default {
+    data: function() {
+      return {
+        message: 'Hello World'
+      }
+    },
+  }
+</script>
+
+<style scoped>
+/** CSSを記載するタグです */
+  p {
+    color: green;
+  }
+</style>
+
+```
+
+</details>
+
+アイコン付きのHello Worldが表示される
+
+![スクリーンショット 2024-02-13 18 34 31](https://github.com/kb8864/Study-Notes/assets/128299525/42a4b86c-96f8-4eae-ad01-7a48fa1e0083)
+
+# Vueのロゴを削除する
+App.vue」を編集し、Vueのロゴを削除
+App.vueの以下<img>タグでロゴの画像を読み込んでいるのでコメントアウト
+
+<details>
+  <summary>App.vue</summary>
+  
+```
+```
+
+</details>
