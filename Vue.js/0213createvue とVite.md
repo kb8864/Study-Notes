@@ -1,4 +1,4 @@
-# 開発ツールcreatevueのインストール
+# Vue公式のVueプロジェクト作成ライブラリcreatevueのインストール
 
 
 <details>
@@ -12,7 +12,7 @@
 </details>
 
  
-# これからやるのは開発ツールのインストール
+# これからやるのはインストール方法
 ## 用語
 ・独自の.vueファイルを使って、コンポーネントを作成する
 ・開発環境なら、ブラウザ上で「.vueファイル」実行可能
@@ -406,3 +406,172 @@ main {
 ```
 アプリケーションは起動時にCounter コンポーネントのみを表示
 
+# npm 経由で Tailwind をインストール
+```
+% npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+
+added 116 packages, and audited 145 packages in 1m
+
+34 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+```
+
+# Tailwind CSS をセットアップ
+```
+ % npx tailwindcss init -p
+
+Created Tailwind CSS config file: tailwind.config.js
+Created PostCSS config file: postcss.config.js
+```
+
+# ファイル構成の確認
+```
+% tree src
+src
+├── App.vue
+├── assets
+│   ├── base.css
+│   ├── logo.svg
+│   └── main.css
+├── components
+│   ├── Counter.vue
+│   ├── HelloWorld.vue
+│   ├── TheWelcome.vue
+│   ├── WelcomeItem.vue
+│   └── icons
+│       ├── IconCommunity.vue
+│       ├── IconDocumentation.vue
+│       ├── IconEcosystem.vue
+│       ├── IconSupport.vue
+│       └── IconTooling.vue
+└── main.js
+```
+
+# Tailwind CSSをプロジェクトに含める
+src/assets/main.cssの先頭に追加する
+```
+/**
+ * Tailwind CSS
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @import './base.css'; */;
+```
+
+# tailwind.config.jsのcontent設定
+content を create-vue で作ったファイル構成に合わせる
+## tailwind.config.jsのcontent配列は、Tailwindがスタイルを適用する必要があるファイルを指定しないといけない
+Vueコンポーネント内でTailwindクラスを使用するためには、Vueファイル（.vue）を含めるようにこの配列を更新する
+```
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+```
+"./src/**/*.{vue,js,ts,jsx,tsx}"はsrcディレクトリとそのサブディレクトリ内の.vue、.js、.ts、.jsx、.tsxファイルすべてを含めることを意味する。
+これにより、VueコンポーネントやJavaScriptファイル内でTailwind CSSを自由に使用できる
+
+プロジェクトを再ビルド
+
+# ちょっとTailwind CSSでHello Worldをいじってみる
+
+<details>
+  <summary>main.css</summary>
+  
+```
+/* 追加 */
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @import './base.css'; */
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 2rem;
+  }
+}
+
+```
+
+</details>
+
+<details>
+  <summary>HelloWorld.vue</summary>
+  
+```
+<template>
+  <!--HTMLを記載するタグです-->
+  <div id="app">
+    <div class="flex h-screen items-center justify-center bg-gray-200">
+    <p class="text-4xl font-bold text-whopper font-lobster">{{ message }}</p>
+    </div>
+  </div>
+</template>
+
+<script>
+// スクリプトを記載するタグです
+  export default {
+    data: function() {
+      return {
+        message: 'Hello World'
+      }
+    },
+  }
+</script>
+
+<!-- 既存のスタイルは削除またはコメントアウトして、Tailwind CSSのみを利用 -->
+<!-- <style scoped> -->
+<!-- /** CSSを記載するタグです */ -->
+  <!-- p {
+    color: green;
+  }
+</style> -->
+
+
+```
+
+</details>
+あてただけなので、これでよし
+
+<img width="194" alt="スクリーンショット 2024-02-13 21 38 09" src="https://github.com/kb8864/Study-Notes/assets/128299525/4c0b73af-fb00-4bf0-b4b1-7cea1cfac1fb">
