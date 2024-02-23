@@ -187,3 +187,7 @@ export default {
   }
 }
 </script>
+
+
+[シンプルに解説：vue3で親子間のデータ連携を行う方法](https://chiii-blog.com/vue_parent_and_child_props/)
+
