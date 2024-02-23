@@ -89,4 +89,101 @@ export default {
 
 ## 親子のコンポーネントができたら子から親にイベントを発生させてデータを渡す。
 props のように直接データを渡す方法は用意されていないので、イベントを通じてデータを送る（emitを使う）
+### 子コンポーネントでイベントを発生させる方法は以下の通り。
+setup 関数のふたつめの引数に context というオブジェクトが渡す
+```
 
+<template>
+  <div>
+    <button @click="handleClick">Click me!</button>
+  </div>
+</template>
+
+<script>
+export default {
+  ⭐️setup (props, context) {
+    const handleClick = () => {
+      ⭕️context.emit('my-event')
+    }
+
+    return { handleClick }
+  }
+}
+</script>
+⭕️context.emit(イベント名) を実行することで、カスタムイベントを発生させることが可能
+
+```
+
+### 親コンポーネントで子のイベントを受け取る
+ v-on ディレクティブを使う
+ ```
+<template>
+  <div>
+    <Child @my-event="handleEvent" />
+  </div>
+</template>
+
+<script lang="ts">
+import Child from './child.vue'
+
+export default {
+  components: { Child },
+  setup () {
+    const handleEvent = () => {
+      alert('イベント発生！')
+    }
+
+    return { handleEvent }
+  }
+}
+</script>
+
+```
+
+## 子に渡した親の変数を書き換えたい場合はイベントを使う
+この時の注意点は、子コンポーネントの中で props の中身を直接変更してはいけない
+子コンポーネントでイベントを発生させる→
+その引数を（親コンポーネントの）イベントハンドラ内で代入する、という手順を踏むことで親コンポーネントの変数の値を変更
+`子コンポーネント`
+```
+export default {
+  props: {
+    count: Number
+  },
+  setup (props, { emit }) {
+    ⭐️// ボタンのイベントハンドラ
+    const handleClick = () => {
+      emit('my-event', props.count + 1)
+    }
+
+    return { handleClick }
+  }
+}
+
+```
+`親コンポーネント`
+
+<template>
+  <div>
+    <Child :count="num" @my-event="num = $event" />
+      </div>
+</template>
+
+<script>
+import { ref } from '@vue/composition-api'
+import Child from './child.vue'
+
+export default {
+  components: { Child },
+  setup () {
+    const num = ref(0)
+
+    // イベントハンドラ内で num の値を更新
+    const handleEvent = (newVal) => {
+      num.value = newVal
+    }
+
+    return { num, handleEvent }
+  }
+}
+</script>
