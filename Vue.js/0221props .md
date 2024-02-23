@@ -191,3 +191,14 @@ export default {
 
 [シンプルに解説：vue3で親子間のデータ連携を行う方法](https://chiii-blog.com/vue_parent_and_child_props/)
 
+# [公式の説明](https://ja.vuejs.org/guide/components/props.html#props-declaration)
+props の宣言方法は、defineProps()関数を使って宣言する。
+事前のインポートがいらない点にも注目です。というのも、definePropsは、<scriptsetup>要素を処理するに先立って、あらかじめ処理されるコンパイラーマクロだから。実行時に処理されるref／reactiveなどの関数とは異なるしくみなので、import命令による宣言も不要
+```
+<script setup>
+const props = defineProps(['foo'])
+
+console.log(props.foo)
+</script>
+```
+
