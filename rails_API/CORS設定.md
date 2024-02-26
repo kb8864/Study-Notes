@@ -5,6 +5,10 @@ CORSとは、Cross-Origin Resource Sharing（クロスオリジンリソース�
 その回避策として用意されているのがこのCORS
 [CORS設定](https://cloud.google.com/storage/docs/cross-origin?hl=ja)
 
+## 必要な理由
+ウェブページAからウェブページBの情報を取得したい時、CORSがなければ、セキュリティの問題で情報を取得することができない。しかし、CORSが正しく設定されていれば、この情報の取得が安全に行われる。
+CORSは主に、フロントエンドがバックエンドのデータにアクセスする際の制限や許可を管理する。
+
 ## オリジンの具体例
 [オリジンの具体例](https://developer.mozilla.org/ja/docs/Glossary/Origin)
 
@@ -47,4 +51,4 @@ Rails側でリクエストがくるドメインを許可する方法<=こっち�
 
 ## 参考記事
 [Rails APIでのCORS設定](https://qiita.com/mtoyopet/items/326ba62d485e9ef0dacd)
-
+[CORSって何？CORSエラーが起きた時の対処方法は？](https://musclecoding.com/rails-api-cors/)
