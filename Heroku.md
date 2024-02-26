@@ -193,4 +193,49 @@ dekita
   heroku-22
 ```
 
+git commit 
+git push
+git push heroku main
 
+ 
+# 本番環境のPostgreSQLを初期化の準備
+railsマスターキーを登録する
+ % tree config -L 1でmaster.key確認できる
+ herokuの環境変数にマスターキーを登録する
+ ```
+api % pbcopy < config/master.key
+api % heroku config:set RAILS_KEY=コピーしたマスターキー
+```
+
+
+# 本番環境のPostgreSQLを初期化
+マイグレーションコマンド
+```
+heroku run rails db:migrate
+```
+
+
+<details>
+  <summary>エラーが出たら・・</summary>
+  
+```
+エラー対応。Herokuにmaster keyをセットする
+このエラーはHerokuにmaster.keyをセットすれば直る。
+
+第三者に見られたく無い情報なので、Herokuの環境変数に直接設定。
+
+api $ heroku config:set RAILS_MASTER_KEY=<master key>
+間違った場合はもう一度同じ環境変数名でセットすればOK
+api $ heroku config
+
+RACK_ENV:                 production
+RAILS_ENV:                production
+RAILS_LOG_TO_STDOUT:      enabled
+RAILS_MASTER_KEY:         e4hdkljefwierlbjiej32376sldkv # OK!!
+RAILS_SERVE_STATIC_FILES: enabled
+もう一度データベースの初期化を行う
+
+```
+
+</details>
+## 
