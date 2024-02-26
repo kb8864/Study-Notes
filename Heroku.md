@@ -89,3 +89,108 @@ docker inspect -f="{{ .Config.Cmd }}" e90d9a0351c0
 
 使っていないdocker imageを全削除
 docker image prune -f
+
+# HerokuCILのプラグインmanifestを導入する
+作成したheroku.ymlにsetupを記述したが、それおｗぽ導入うするための手順
+[HerokuCLI-manifestのデプロイ解説](https://blog.cloud-acct.com/posts/u-setup-herokuyml-deploy)
+
+# Herokuのリモートリポジトリ先を確認する
+% git remote -v
+heroku	https://git.heroku.com/demoapp-v1-api.git (fetch)
+heroku	https://git.heroku.com/demoapp-v1-api.git (push)
+origin	git@github.com:kb8864/rails7-Nuxt_api.git (fetch)
+origin	git@github.com:kb8864/rails7-Nuxt_api.git (push)
+
+# GitHubにpushする
+[公式の手順](https://devcenter.heroku.com/articles/keys)
+
+```
+api % pwd
+/Users/user/workspace/rails+Nuxt/udemy_demoapp_v1/api
+% ssh-keygen -f ~/.ssh/id_rsa_JWT_heroke -C kono.loca
++---[RSA 3072]----+
+|+     o +. ..    |
+|o+   . *.=..     |
+| *o . ..* + .    |
+|. ++ . ..o =     |
+|  . + o S.. o    |
+|   + . ..... .   |
+|  E   .o=o=o.    |
+|      .oo*o.+.   |
+|       .o+.. ..  |
++----[SHA256]-----+
+% ls ~/.ssh
+```
+
+## herokuに公開鍵を追加する方法
+heroku keys:add 追加した公開鍵のファイルパス
+```
+% heroku keys:add ~/.ssh/id_rsa_JWT_heroke.pub
+
+Uploading /Users/user/.ssh/id_rsa_JWT_heroke.pub SSH key... done
+```
+追加したキーの確認方法（ターミナル）
+heroku keys
+```
+% heroku keys
+=== @gmail.com keys
+ssh-rsa AAAAB3NzaC...SqwMsJoyc= kono.loca
+```
+
+## SSHキーの登録
+[SSHキーの登録](https://devcenter.heroku.com/articles/keys#common-ssh-key-problems)
+```
+Host heroku.com
+  HostName heroku.com
+  IdentityFile /path/to/key_fileー＞~/.ssh/鍵
+  IdentitiesOnly yes
+```
+
+## herokuのSSH接続（herokuはGitのSSH接続を2021年11月30日に非推奨）
+% ssh -v git@git.heroku.com
+git remote -vでHTTP接続になっていることを確認
+
+```
+% git remote -v
+heroku	https://git.heroku.com/demoapp-v1-api.git (fetch)
+heroku	https://git.heroku.com/demoapp-v1-api.git (push)
+```
+SSH接続へ変更するためにまず削除
+ git remote remove heroku
+```
+% git remote -v
+origin	git@github.com:kb8864/rails7-Nuxt_api.git (fetch)
+origin	git@github.com:kb8864/rails7-Nuxt_api.git (push)
+```
+
+
+リモートリポジトリを追加
+git remote add heroku git@heroku.com:<アプリ名>
+api $ git remote add heroku git@heroku.com:demoapp-v1-api-app.git
+```
+api % git remote add heroku git@heroku.com:demoapp-v1-api-app.git
+api % git remote -v
+heroku	git@heroku.com:demoapp-v1-api-app.git (fetch)
+heroku	git@heroku.com:demoapp-v1-api-app.git (push)
+origin	git@github.com:kb8864/rails7-Nuxt_api.git (fetch)
+origin	git@github.com:kb8864/rails7-Nuxt_api.git (push)
+```
+
+Heroku スタックの確認
+```
+%  heroku stack
+ ▸    Couldn't find that app.
+エラーが出ている・・・
+```
+以下の記事で解決
+[ ▸ Couldn't find that app.」というエラーが出てきた時の対処メモ](https://qiita.com/at-946/items/ce4db1d80429d6984cfc)
+dekita
+```
+ %  heroku stack
+=== ⬢ demoapp-v1-api Available Stacks
+* container
+  heroku-20
+  heroku-22
+```
+
+
