@@ -1,3 +1,6 @@
+# rails側の設定
+
+
 # Heroku用にPumaのセッティングを行う
 Pumaとは、複数のリクエストを並行して処理することができる高速化を目的としたWebサーバ
 「api/config」直下のpuma.rbを編集
