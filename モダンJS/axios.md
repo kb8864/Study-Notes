@@ -49,3 +49,13 @@ axios.get('https://example.com/data')
   });
 
 ```
+
+axiosの処理を記述する際のお作法としてthenとcatchが使われます。
+
+then ... APIリクエストが成功した時の処理。
+catch ... 失敗した時の処理。
+```
+this.$axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+  .then(response => (this.info = response.data.bpi))
+  .catch(error => console.log(error))省略可能
+```
