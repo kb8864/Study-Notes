@@ -39,4 +39,10 @@ dockerのコマンド
 停止済のコンテナを削除するなら container rm
 起動中のコンテナを削除するなら container rm --force
 
+コンテナを削除するなら（使わなくなったら）→作ったコンテナごと削除する
+docker-compose down
 ```
+
+## rails cするなら
+例えばapiのオプションをつけるなら
+docker-compose run --rm api rails c
