@@ -3,6 +3,7 @@
 CORSとは、Cross-Origin Resource Sharing（クロスオリジンリソースシェアリング）の略で、異なるオリジン間の通信（例えば）を許可する仕組み
 同一オリジンポリシーは、不正なやりとりを防止すると同時に正当なやりとりも拒否してしまう。
 その回避策として用意されているのがこのCORS
+
 [CORS設定](https://cloud.google.com/storage/docs/cross-origin?hl=ja)
 
 ## 必要な理由
@@ -10,17 +11,18 @@ CORSとは、Cross-Origin Resource Sharing（クロスオリジンリソース�
 CORSは主に、フロントエンドがバックエンドのデータにアクセスする際の制限や許可を管理する。
 
 ## オリジンの具体例
+
 [オリジンの具体例](https://developer.mozilla.org/ja/docs/Glossary/Origin)
 
 ### オリジンとは、URLのスキーム・ホスト・ポートの３つの組み合わせの事
-http://www.exsample.com:80/index.htmlというURLを例にすると、
+`http://www.exsample.com:80/index.html` というURLを例にすると、
 
 スキーム: http://
 ホスト: www.exsample.com
 ポート: 80 (ポート番号は省略可)
 AとBという２つのオリジンがあったとして、この3つがすべて一致したときのみ「AとBは同じオリジンである」
 
-### 同一オリジンポリシーに違反していない。
+### 同一オリジンポリシーに違反していない例。
 
 スキームとドメインが一致しているので同一オリジン
 http://example.com/app1/index.html
@@ -38,6 +40,7 @@ https: //example.com/app2
 
 http://example.com
 http://www.example.com
+
 ポートが異なるオリジン
 
 http://example.com
@@ -51,4 +54,5 @@ Rails側でリクエストがくるドメインを許可する方法<=こっち�
 
 ## 参考記事
 [Rails APIでのCORS設定](https://qiita.com/mtoyopet/items/326ba62d485e9ef0dacd)
+
 [CORSって何？CORSエラーが起きた時の対処方法は？](https://musclecoding.com/rails-api-cors/)
