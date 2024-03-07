@@ -25,8 +25,11 @@ AとBという２つのオリジンがあったとして、この3つがすべ�
 ### 同一オリジンポリシーに違反していない例。
 
 スキームとドメインが一致しているので同一オリジン
+
 http://example.com/app1/index.html
+
 http://example.com/app2/index.html
+
 http://example.com/category/app1/index.html
 
 ### 同一オリジンポリシーに違反している。
@@ -34,16 +37,19 @@ http://example.com/category/app1/index.html
 スキームが異なるオリジン
 
 http: //example.com/app1
+
 https: //example.com/app2
 
 ドメインが異なるオリジン
 
 http://example.com
+
 http://www.example.com
 
 ポートが異なるオリジン
 
 http://example.com
+
 http://example.com:8080
 
 
