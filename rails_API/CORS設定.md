@@ -55,7 +55,30 @@ http://example.com:8080
 
 # CORS設定の方法
 Nuxt.js側にproxy（代理サーバ）を立てて通信を行う方法
+
 Rails側でリクエストがくるドメインを許可する方法<=こっちがいい
+これは
+gem 'rack-cors'　というgemをインストールして他のフロントエンドとの通信を許可させる
+root $ docker-compose build api で再ビルド
+
+
+rack-corsの設定ファイルを編集
+api/config/initializers/cors.rb 内のoriginsの部分に許容するドメインを指定する。
+　docker-compose.ymlで指定した値を入れるため、
+`origins ENV["API_DOMAIN"] || ""`を追加
+
+
+docker-compose up
+Nextのリクエストに答えて以前のエラーを解決できていることを確認
+レスポンスの成功を表す200番も表示されている
+
+以下のような画面になればOK
+
+
+https://github.com/kb8864/Study-Notes/assets/128299525/0587d356-1b91-4fe0-9031-5cbbabd53b24
+
+
+
 
 
 ## 参考記事
