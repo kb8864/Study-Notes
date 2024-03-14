@@ -1,4 +1,4 @@
-# java文法
+# java練習
 
 まずはショートカット
 
@@ -17,3 +17,7 @@ lipseの「ウィンドウ」→「ビューの表示」→「その他」
 
 アクセストークン
 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
+
+
+## 補完機能のショートカット
+【Ctrl + Space】：補完機能
