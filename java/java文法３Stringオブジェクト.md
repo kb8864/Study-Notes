@@ -114,6 +114,11 @@ class java2_4 {
 	}
 }
 
+
+```
+
+</details>
+
 <details>
   <summary>コンパイル結果</summary>
   
@@ -139,6 +144,5 @@ check4：false
 ```
 
 </details>
-```
 
-</details>
+[java.lang.Stringクラスのメソッド](https://itstudio.co/2023/06/11/11706/#:~:text=%E3%81%A7%E3%81%AF%E3%81%82%E3%82%8A%E3%81%BE%E3%81%9B%E3%82%93%E3%80%82-,java.lang.String%E3%82%AF%E3%83%A9%E3%82%B9%E3%81%AE%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89,-java.lang.String)
