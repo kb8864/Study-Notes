@@ -54,6 +54,27 @@ System.out.println(str2.indexOf("c")); // 2
 System.out.println(str3.indexOf("bc")); // 1
 
 ```
+シンプルに文字列を追加する場合、concat()を使う（文字列を末尾に追加するStringBuilderクラスのメソッドのappend()と混在注意）
+```
+System.out.println(str.concat("fg"));
+System.out.println(10+ 20 + "30" + 40); // 303040**
+```
+
+## StringBuilderクラスのインスタンスを作成する
+[StringBuilderクラスのインスタンスを作成する](https://www.javadrive.jp/start/stringbuilder/index3.html)
+
+[Javaの String とか StringBuilder のメソッドについて](https://qiita.com/hiroki-harada/items/b9bd3c6c7d6acdd734e0)
+
+[文字列の結合](https://sitaca.net/%E3%80%90java%E3%80%91stringbuilder%E3%82%AF%E3%83%A9%E3%82%B9%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9%E3%80%90%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E7%B5%90%E5%90%88%E3%80%91/)
+
+
+
+
+
+
+
+
+
 
 ## Stringの比較する時の注意点
 
