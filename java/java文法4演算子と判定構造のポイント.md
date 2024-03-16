@@ -68,7 +68,7 @@ int bb = aa++;
 System.out.println(bb++ + aa++ - --aa);
 ⭐️複合したインクリメントとデクリメントの操作
 int aa = 10;
-int bb = aa++;で、aaの値をbbに代入した後、aaを1増やす。この時点ではaa=11 bb=11
+int bb = aa++;で、aaの値をbbに代入した後、aaを1増やす。この時点ではaa=11 bb=10
 
 System.out.println(bb++ + aa++ - --aa);について
 bb++は後置インクリメント。bbの現在の値（10）に値を1増やすが、後置なので式の評価後に発生するため、この時点の結果は10。
