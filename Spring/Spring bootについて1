@@ -1,4 +1,4 @@
-# 3/29作業内容：Spring bootについて1
+# 4/1作業内容：Spring bootについて1
 ## 該当コード
 ## 
 
@@ -89,7 +89,7 @@ public @interface MyAnnotation {
 ## 作成したコード
 
 <details>
-  <summary>該当箇所のコード</summary>
+  <summary>TodoApplication.javaコードの説明</summary>
   
 ```
 package com.example.todo;
@@ -97,13 +97,12 @@ package com.example.todo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication//Spring Bootアプリケーションの主要な構成部を示すアノテーション
 public class TodoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TodoApplication.class, args);
 	}
-
 }
 
 ```
@@ -114,30 +113,45 @@ public class TodoApplication {
 ## 4 コントローラについて
 
 Springにおけるコントローラーの作成は、クラスに@RestControllerまたは@Controllerアノテーションを追加することで作成できる
+これらを追記することでコントローラーのクラスとして認識するようになる。
 
-コントローラー内にルーティングを明示するアノテーションを記述する
+コントローラー内にルーティングを明示するアノテーションを記述する。引数に処理させたいURLを記述する。
 `@GetMapping ,@PostMapping,`
-[](https://ramble.impl.co.jp/5411/)
+[【初学者向け】Spring Bootにおけるコントローラーの役割と使い方について【MVC】](https://ramble.impl.co.jp/5411/)
 
+- Getメソッドがきたら、HelloWorld返す
+- トップページでハンドラーメソッドに処理させるように`@Controller("/")`を記述する
+
+
+</details>
 
 <details>
-  <summary>コントローラーの例</summary>
+  <summary>コードの説明</summary>
   
 ```
-@RestController
-public class HelloWorldController {
-    
-    @GetMapping("/hello")
-    public String helloWorld() {
-        return "Hello, world!";
-    }
-}
 ```
+
 </details>
+
 
 <hr>
 
-## 5 
+## 5 テンプレートエンジン Thymeleaf について
+[Thymeleaf ](https://qiita.com/thirai67/items/64fd18810a8ccfedd459)
+
+[公式サイト](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf_ja.html)
+
+Thymeleafの準備
+gradle.buildに以下に内容を記述してローカルにダウンロード
+
+
+`	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+`
+
+コントローラの書き換え
+戻り値をテンプレートエンジン経由で渡す
+
+<hr>
 
 
 
