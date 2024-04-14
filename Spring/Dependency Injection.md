@@ -10,6 +10,9 @@
 DIのステップはBean登録と取得
 DIは使いたいオブジェクトを直接入れず外部から渡してもらうデザインパターン、DI経由で渡されるオブジェクトはBean
 
+## @Autowiredについて
+[@Autowiredについて](https://qiita.com/yuto-hatano/items/69d01343f710117e4243)
+
 失敗パターン
 １　Beanの登録もれ→@Serviceをつける
 こんなエラーが出る
