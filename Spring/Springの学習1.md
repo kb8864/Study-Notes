@@ -44,4 +44,7 @@ Bean=コンテナで管理されたインスタンス
 
 [Spring Boot Actuatorを使って開発効率を飛躍的に向上させる方法](https://www.issoh.co.jp/tech/details/1931/)
 
-認証と認可を扱う部分
+ - 認証と認可を扱う部分
+- ロールヒエラルきー。この部分の認識があいまい
+[ロールヒエラルきー](https://qiita.com/opengl-8080/items/032ed0fa27a239bdc1cc)
+- 
