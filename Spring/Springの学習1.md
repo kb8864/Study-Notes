@@ -37,14 +37,41 @@ Bean=コンテナで管理されたインスタンス
 
 
 # Spring Boot Actuator入門
+認証、認可、セッション管理機能（Spring Securityでは、ログイン時にセッション IDという証明書のようなものが発行されます。これをAuthentication インターフェースというサーバー側の機能と、ブラウザ側の両方が持つことでセッションの整合性を保ちます。）で使う
+実行中のSpring Boot アプリケーションの情報を取得するための機能と考えればいい。
+ここを学習する前にいろんなエンドポイントがあることを頭に入れる。
 アプリケーションの監視、管理、デバッグなどで役立ちます。
+
+[5分で解決](https://camp.trainocate.co.jp/magazine/spring-security/)
+
+各クラスについて
+- FilterChainProxy(リクエストを最初に受け取るクラスであり、Webアプリケーションとユーザーとの処理の全体を制御)
+- SecurityFilterChainこのクラスのおかげでリクエスト毎に異なるセキュリティ機能を適用することが可能)
+- HttpFirewall
+
+### 認可について
+
+### 認証について、
+ログインは、Authentication オブジェクトの作成。
+ログイン済みかどうかは、Authentication オブジェクトがセッションに保持されているかをチェックすることで確認していると覚えておく
+
+### 基本的な使いかた
+WebSecurityConfigurerAdapterクラスを継承して定義を行い、既存のコントローラに何も記述せずにセキュリティ機能が追加でき容易する
+[Spring BootでWebセキュリティを設定しよ](https://codezine.jp/article/detail/11703)
+
+### Springの開発でで使用する場面
+実際に読み込まれたプロパティが分からない→→env
+
+Controllerのどのメソッドがどのエンドポイント
+に対応しているか分からない⇒ mappiｇエンドポイントでControllerのメソッドとの対応関係を一覧で取得できるようにする
+
+ログレベルを変えるのにいちいち再起動するのが面倒だ
+⇒ loggers
+
 [jsug201908_SpringBootActuator.pdf](https://github.com/kb8864/StudyNoteAndTIL/files/14976182/jsug201908_SpringBootActuator.pdf)
 
 [Spring Boot Actuatorとは？よく使うエンドポイントや使い方](https://camp.trainocate.co.jp/magazine/about-spring-boot-actuator/)
 
 [Spring Boot Actuatorを使って開発効率を飛躍的に向上させる方法](https://www.issoh.co.jp/tech/details/1931/)
 
- - 認証と認可を扱う部分
-- ロールヒエラルきー。この部分の認識があいまい
-[ロールヒエラルきー](https://qiita.com/opengl-8080/items/032ed0fa27a239bdc1cc)
-- 
+[Spring Securityでログイン機能](https://qiita.com/yosuke_takeuchi/items/93f9155b5a4fa1976247#:~:text=%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E5%87%A6%E7%90%86%E3%81%B8%E3%81%AE%E9%81%93%E3%81%AE%E3%82%8A&text=%E3%83%BBSecurity%E3%81%A7%E6%8F%90%E4%BE%9B%E3%81%97%E3%81%A6,%E3%81%8C%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%80%82)
