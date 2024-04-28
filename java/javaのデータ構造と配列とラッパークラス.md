@@ -25,4 +25,16 @@ var a = new ArrayList<String>();
 ## ラッパークラス
 [Integerとラッパークラスの基礎の基礎をわかりやすく解説！](https://www.sejuku.net/blog/228280
 
+[ ラッパークラスの特徴とAPI（Integerクラス、Longクラス、オートボクシングなど）～Java Basic編](https://qiita.com/KenyaSaitoh/items/fff28b132c7e1048ca97_)
 
+## Map
+
+```
+jshell> var fruits = Map.of("apple", "りんご", "grape", "ぶどう");
+fruits ==> {apple=りんご, grape=ぶどう}
+
+jshell> fruits.get("grape")
+$32 ==> "ぶどう"
+
+```
+[map](https://camp.trainocate.co.jp/magazine/java-map/)
