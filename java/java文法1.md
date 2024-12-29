@@ -5,6 +5,15 @@
 
 Javaのクラスファイルを指定して実行する
 `java Main`
+```
+public class Main{
+ public static void main(String... args) {
+    System.out.println("Hello ");
+    }   
+}
+```
+
+## 変数宣言
 
 [変数宣言の記事](https://www.sejuku.net/blog/22805)
 データ型名 変数名 = 値;
